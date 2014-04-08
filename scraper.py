@@ -21,3 +21,20 @@
 # on Morph for Python (https://github.com/openaustralia/morph-docker-python/blob/master/pip_requirements.txt) and all that matters
 # is that your final data is written to an Sqlite database called data.sqlite in the current working directory which
 # has at least a table called data.
+#!/usr/bin/env python
+
+import scraperwiki
+import requests
+import lxml.html
+
+html = requests.get("http://www.europarl.europa.eu/meps/en/full-list.html?filter=all&leg=").content
+dom = lxml.html.fromstring(html)
+
+for entry in dom.cssselect('.mep_details'):
+    post = {
+    'url': entry.cssselect('a')[0].get('href'),
+    'politicalgroup': entry.cssselect('.name_pol_group')[0].text_content(),
+    'name': entry.cssselect('.mep_name')[0].text_content(),
+    }
+    print post
+scraperwiki.sql.save(['url'], post)
