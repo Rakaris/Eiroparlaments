@@ -37,4 +37,4 @@ for entry in dom.cssselect('.mep_details'):
     'name': entry.cssselect('.mep_name')[0].text_content(),
     }
     print post
-scraperwiki.sqlite.save(unique_keys=['EirodeputātuSaraksts'], data={"EirodeputātuSaraksts": "Rakaris", "PatsSevSaimnieks": "Entuziasts"})
+scraperwiki.sqlite.save(unique_keys=['EirodeputatuSaraksts'], data={"EirodeputatuSaraksts": "Rakaris", "PatsSevSaimnieks": "Entuziasts"})
